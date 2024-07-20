@@ -1,5 +1,6 @@
 package net.picoman.tutorialmod.datagen;
 
+import net.minecraftforge.fml.common.Mod;
 import net.picoman.tutorialmod.TutorialMod;
 import net.picoman.tutorialmod.block.ModBlocks;
 import net.picoman.tutorialmod.util.ModTags;
@@ -44,6 +45,9 @@ public class ModBlockTagGenerator extends BlockTagsProvider {
 
         this.tag(Tags.Blocks.NEEDS_NETHERITE_TOOL)
                 .add(ModBlocks.END_STONE_SAPPHIRE_ORE.get());
+
+        this.tag(ModTags.Blocks.NEEDS_SAPPHIRE_TOOL)
+                .add(ModBlocks.SOUND_BLOCK.get());
 
         this.tag(BlockTags.FENCES)
                 .add(ModBlocks.SAPPHIRE_FENCE.get()); //les ajouter au tag permet de faire en sorte que les barrières se connectent quand on les pose
