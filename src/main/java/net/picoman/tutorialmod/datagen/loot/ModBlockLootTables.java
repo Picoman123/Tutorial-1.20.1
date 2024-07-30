@@ -1,6 +1,7 @@
 package net.picoman.tutorialmod.datagen.loot;
 
 import net.picoman.tutorialmod.block.ModBlocks;
+import net.picoman.tutorialmod.block.custom.CornCropBlock;
 import net.picoman.tutorialmod.block.custom.StrawberryCropBlock;
 import net.picoman.tutorialmod.item.ModItems;
 import net.minecraft.advancements.critereon.StatePropertiesPredicate;
@@ -57,10 +58,25 @@ public class ModBlockLootTables extends BlockLootSubProvider {
 
         LootItemCondition.Builder lootitemcondition$builder = LootItemBlockStatePropertyCondition
                 .hasBlockStateProperties(ModBlocks.STRAWBERRY_CROP.get())
-                .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(StrawberryCropBlock.AGE, 5)); //vérifie que la plante soit bien au stage final pour drop une strawberry
+                .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(StrawberryCropBlock.AGE, 5));
 
         this.add(ModBlocks.STRAWBERRY_CROP.get(), createCropDrops(ModBlocks.STRAWBERRY_CROP.get(), ModItems.STRAWBERRY.get(),
-                ModItems.STRAWBERRY_SEEDS.get(), lootitemcondition$builder)); //drop la strawberry si la condition est respectée
+                ModItems.STRAWBERRY_SEEDS.get(), lootitemcondition$builder));
+
+
+        LootItemCondition.Builder lootitemcondition$builder2 = LootItemBlockStatePropertyCondition //avec cette méthode y'a le bloc du haut et du bas qui drop
+                .hasBlockStateProperties(ModBlocks.CORN_CROP.get())
+                .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(CornCropBlock.AGE, 7))
+                .or(LootItemBlockStatePropertyCondition
+                        .hasBlockStateProperties(ModBlocks.CORN_CROP.get())
+                        .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(CornCropBlock.AGE, 8)));
+        //autre méthode qui fait en sorte que le bloc du haut drop et pas celui du bas
+        // LootItemCondition.Builder lootitemcondition$builder2 = LootItemBlockStatePropertyCondition
+        //         .hasBlockStateProperties(ModBlocks.CORN_CROP.get())
+        //         .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(CornCropBlock.AGE, 8));
+
+        this.add(ModBlocks.CORN_CROP.get(), createCropDrops(ModBlocks.CORN_CROP.get(), ModItems.CORN.get(),
+                ModItems.CORN_SEEDS.get(), lootitemcondition$builder2));
 
     }
 

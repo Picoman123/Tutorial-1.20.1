@@ -1,6 +1,7 @@
 package net.picoman.tutorialmod.block;
 
 import net.picoman.tutorialmod.TutorialMod;
+import net.picoman.tutorialmod.block.custom.CornCropBlock;
 import net.picoman.tutorialmod.block.custom.SoundBlock;
 import net.picoman.tutorialmod.block.custom.StrawberryCropBlock;
 import net.picoman.tutorialmod.item.ModItems;
@@ -70,6 +71,9 @@ public class ModBlocks {
 
     public static final RegistryObject<Block> STRAWBERRY_CROP = BLOCKS.register("strawberry_crop", // on appelle BLOCKS.register et pas registerBlock parce qu'on a pas d'item Strawberrycrop mais l'item est strawberry seeds
             () -> new StrawberryCropBlock(BlockBehaviour.Properties.copy(Blocks.WHEAT).noOcclusion().noCollission()));
+
+    public static final RegistryObject<Block> CORN_CROP = BLOCKS.register("corn_crop",
+            () -> new CornCropBlock(BlockBehaviour.Properties.copy(Blocks.WHEAT).noOcclusion().noCollission()));
 
     private static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block) {
         RegistryObject<T> toReturn = BLOCKS.register(name, block);
