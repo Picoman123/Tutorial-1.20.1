@@ -1,6 +1,7 @@
 package net.picoman.tutorialmod.item;
 
 import net.picoman.tutorialmod.TutorialMod;
+import net.picoman.tutorialmod.block.ModBlocks;
 import net.picoman.tutorialmod.item.custom.FuelItem;
 import net.picoman.tutorialmod.item.custom.MetalDetectorItem;
 import net.minecraft.world.item.*;
@@ -51,6 +52,9 @@ public class ModItems {
             () -> new ArmorItem(ModArmorMaterials.SAPPHIRE, ArmorItem.Type.LEGGINGS, new Item.Properties()));
     public static final RegistryObject<Item> SAPPHIRE_BOOTS = ITEMS.register("sapphire_boots",
             () -> new ArmorItem(ModArmorMaterials.SAPPHIRE, ArmorItem.Type.BOOTS, new Item.Properties()));
+
+    public static final RegistryObject<Item> STRAWBERRY_SEEDS = ITEMS.register("strawberry_seeds",
+            () -> new ItemNameBlockItem(ModBlocks.STRAWBERRY_CROP.get(), new Item.Properties())); //Il faut bien préciser le bloc auquel l'item est relié dans ItemNameBlockItem
 
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);

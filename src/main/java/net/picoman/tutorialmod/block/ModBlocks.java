@@ -2,6 +2,7 @@ package net.picoman.tutorialmod.block;
 
 import net.picoman.tutorialmod.TutorialMod;
 import net.picoman.tutorialmod.block.custom.SoundBlock;
+import net.picoman.tutorialmod.block.custom.StrawberryCropBlock;
 import net.picoman.tutorialmod.item.ModItems;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.valueproviders.UniformInt;
@@ -66,6 +67,9 @@ public class ModBlocks {
             () -> new DoorBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).sound(SoundType.AMETHYST).noOcclusion(), BlockSetType.IRON)); //BlockSetType IRON empêche l'ouverture par la main
     public static final RegistryObject<Block> SAPPHIRE_TRAPDOOR = registerBlock("sapphire_trapdoor",
             () -> new TrapDoorBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).sound(SoundType.AMETHYST).noOcclusion(), BlockSetType.IRON)); //pas oublier le noOcclusion si on copie autre chose qu'une porte (ici un bloc de fer), sinon c'est comme si on avait xray
+
+    public static final RegistryObject<Block> STRAWBERRY_CROP = BLOCKS.register("strawberry_crop", // on appelle BLOCKS.register et pas registerBlock parce qu'on a pas d'item Strawberrycrop mais l'item est strawberry seeds
+            () -> new StrawberryCropBlock(BlockBehaviour.Properties.copy(Blocks.WHEAT).noOcclusion().noCollission()));
 
     private static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block) {
         RegistryObject<T> toReturn = BLOCKS.register(name, block);
