@@ -10,6 +10,7 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import net.picoman.tutorialmod.item.custom.ModArmorItem;
+import net.picoman.tutorialmod.sound.ModSounds;
 
 public class ModItems {
     public static final DeferredRegister<Item> ITEMS =
@@ -60,6 +61,10 @@ public class ModItems {
             () -> new ItemNameBlockItem(ModBlocks.CORN_CROP.get(), new Item.Properties()));
     public static final RegistryObject<Item> CORN = ITEMS.register("corn",
             () -> new Item(new Item.Properties()));
+
+    public static final RegistryObject<Item> BAR_BRAWL_MUSIC_DISC = ITEMS.register("bar_brawl_music_disc",
+            () -> new RecordItem(6, ModSounds.BAR_BRAWL, new Item.Properties().stacksTo(1), 2440)); //6 corresond à la valeur de comparateur qu'on peut sortir d'un jukebox quand le disque est mis
+    // 2440 correspond à la durée en tics de la musique
 
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);

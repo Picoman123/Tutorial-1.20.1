@@ -2,6 +2,8 @@
 package net.picoman.tutorialmod.datagen;
 
 import net.minecraft.tags.ItemTags;
+import net.minecraft.world.item.Item;
+import net.minecraftforge.fml.common.Mod;
 import net.picoman.tutorialmod.TutorialMod;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
@@ -23,5 +25,9 @@ public class ModItemTagGenerator extends ItemTagsProvider {
     protected void addTags(HolderLookup.Provider pProvider) {
         this.tag(ItemTags.TRIMMABLE_ARMOR).add(ModItems.SAPPHIRE_HELMET.get(), ModItems.SAPPHIRE_CHESTPLATE.get(),
                 ModItems.SAPPHIRE_LEGGINGS.get(), ModItems.SAPPHIRE_BOOTS.get()); //ajouter ce tag permet que l'armure soit trimmable, je crois que c'est les modifs netherites etc que je connais pas trop
+
+        this.tag(ItemTags.MUSIC_DISCS).add(ModItems.BAR_BRAWL_MUSIC_DISC.get());
+
+        this.tag(ItemTags.CREEPER_DROP_MUSIC_DISCS).add(ModItems.BAR_BRAWL_MUSIC_DISC.get());
     }
 }
