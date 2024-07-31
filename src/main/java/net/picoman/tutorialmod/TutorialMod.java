@@ -18,6 +18,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.picoman.tutorialmod.loot.ModLootModifiers;
+import net.picoman.tutorialmod.sound.ModSounds;
 import net.picoman.tutorialmod.villager.ModVillagers;
 import org.slf4j.Logger;
 
@@ -37,6 +38,8 @@ public class TutorialMod {
 
         ModLootModifiers.register(modEventBus);
         ModVillagers.register(modEventBus);
+
+        ModSounds.register(modEventBus);
 
         modEventBus.addListener(this::commonSetup);
 

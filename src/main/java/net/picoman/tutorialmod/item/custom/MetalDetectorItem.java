@@ -3,6 +3,7 @@ package net.picoman.tutorialmod.item.custom;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -13,6 +14,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
+import net.picoman.tutorialmod.sound.ModSounds;
 import net.picoman.tutorialmod.util.ModTags;
 import org.jetbrains.annotations.Nullable;
 
@@ -36,6 +38,9 @@ public class MetalDetectorItem extends Item {
                 if (isValuableBlock(state)) {
                     outputValuableCoordinates(positionClicked.below(i), player, state.getBlock());
                     foundBlock = true;
+
+                    pContext.getLevel().playSeededSound(null, positionClicked.getX(), positionClicked.getY(), //il faut bien mettre null pour player, si on met un joueur ce joueur sera ignoré
+                            positionClicked.getZ(), ModSounds.METAL_DETECTOR_FOUND_ORE.get(), SoundSource.BLOCKS, 1f, 1f, 0);
 
                     break;
                 }
