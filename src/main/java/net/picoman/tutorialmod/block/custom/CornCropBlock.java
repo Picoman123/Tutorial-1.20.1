@@ -18,7 +18,7 @@ import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.common.IPlantable;
-
+//apparement on utilise une deprecated api dans cette classe ce qui peut poser des problèmes, si j'ai des erreurs d'accès de fichiers c'est sans doute ça
 public class CornCropBlock extends CropBlock {
     public static final int FIRST_STAGE_MAX_AGE = 7; //le bloc du bas va de 0 à 7
     public static final int SECOND_STAGE_MAX_AGE = 1; //le bloc du haut va juste à 8
