@@ -47,5 +47,7 @@
 
   "tooltip.tutorialmod.metal_detector.tooltip": "Finds rare ores",
 
+  "entity.minecraft.villager.tutorialmod.soundmaster": "Sound Master",
+
   "creativetab.tutorial_tab": "Sapphire Tutorial Tab"
 }

@@ -1,8 +1,10 @@
-/*package net.picoman.tutorialmod.event;
+package net.picoman.tutorialmod.event;
 
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import net.picoman.tutorialmod.TutorialMod;
+import net.picoman.tutorialmod.block.ModBlocks;
 import net.picoman.tutorialmod.item.ModItems;
+import net.picoman.tutorialmod.villager.ModVillagers;
 import net.minecraft.world.entity.npc.VillagerProfession;
 import net.minecraft.world.entity.npc.VillagerTrades;
 import net.minecraft.world.item.EnchantedBookItem;
@@ -19,19 +21,19 @@ import net.minecraftforge.fml.common.Mod;
 
 import java.util.List;
 
-@Mod.EventBusSubscriber(modid = TutorialMod.MOD_ID) //pour faire en sorte que forge reconnaisse la classe comme une eventclass
+@Mod.EventBusSubscriber(modid = TutorialMod.MOD_ID)
 public class ModEvents {
-//attention les trades avec les villageois n'apparaissent pas avec une proba de 100% comme dans minecraft de base
-    @SubscribeEvent //il faut toujours ça pour un event
-    public static void addCustomTrades(VillagerTradesEvent event) { //il faut toujours ça pour un event, le nom de la fonction et de l'event changent bien sûr
-        if(event.getType() == VillagerProfession.FARMER) { //si on a affaire à un farmer
-            Int2ObjectMap<List<VillagerTrades.ItemListing>> trades = event.getTrades(); //toujours mettre ça
+
+    @SubscribeEvent
+    public static void addCustomTrades(VillagerTradesEvent event) {
+        if(event.getType() == VillagerProfession.FARMER) {
+            Int2ObjectMap<List<VillagerTrades.ItemListing>> trades = event.getTrades();
 
             // Level 1
-            trades.get(1).add((pTrader, pRandom) -> new MerchantOffer( //le int correspond au niveau du trader, va de 1 à 5
-                    new ItemStack(Items.EMERALD, 2),//items qu'il faut donner au villageois
-                    new ItemStack(ModItems.STRAWBERRY.get(), 12), //ce qu'on reçoit
-                    10, 8, 0.02f)); //max uses, xp, price multiplier
+            trades.get(1).add((pTrader, pRandom) -> new MerchantOffer(
+                    new ItemStack(Items.EMERALD, 2),
+                    new ItemStack(ModItems.STRAWBERRY.get(), 12),
+                    10, 8, 0.02f));
 
             // Level 2
             trades.get(2).add((pTrader, pRandom) -> new MerchantOffer(
@@ -48,7 +50,7 @@ public class ModEvents {
 
         if(event.getType() == VillagerProfession.LIBRARIAN) {
             Int2ObjectMap<List<VillagerTrades.ItemListing>> trades = event.getTrades();
-            ItemStack enchantedBook = EnchantedBookItem.createForEnchantment(new EnchantmentInstance(Enchantments.THORNS, 2)); //createForEnchantment permet de créer des livres enchantés facilement
+            ItemStack enchantedBook = EnchantedBookItem.createForEnchantment(new EnchantmentInstance(Enchantments.THORNS, 2));
 
             // Level 1
             trades.get(1).add((pTrader, pRandom) -> new MerchantOffer(
@@ -56,10 +58,24 @@ public class ModEvents {
                     enchantedBook,
                     2, 8, 0.02f));
         }
+
+        if(event.getType() == ModVillagers.SOUND_MASTER.get()) {
+            Int2ObjectMap<List<VillagerTrades.ItemListing>> trades = event.getTrades();
+
+            trades.get(1).add((pTrader, pRandom) -> new MerchantOffer(
+                    new ItemStack(Items.EMERALD, 16),
+                    new ItemStack(ModBlocks.SOUND_BLOCK.get(), 1),
+                    16, 8, 0.02f));
+
+            trades.get(2).add((pTrader, pRandom) -> new MerchantOffer(
+                    new ItemStack(Items.EMERALD, 6),
+                    new ItemStack(ModBlocks.SAPPHIRE_ORE.get(), 2),
+                    5, 12, 0.02f));
+        }
     }
 
     @SubscribeEvent
-    public static void addCustomWanderingTrades(WandererTradesEvent event) { //pour ajouter des trades au wandering trader, les wandering trader n'ont pas de niveaux
+    public static void addCustomWanderingTrades(WandererTradesEvent event) {
         List<VillagerTrades.ItemListing> genericTrades = event.getGenericTrades();
         List<VillagerTrades.ItemListing> rareTrades = event.getRareTrades();
 
@@ -73,4 +89,4 @@ public class ModEvents {
                 new ItemStack(ModItems.METAL_DETECTOR.get(), 1),
                 2, 12, 0.15f));
     }
-}*/
+}
