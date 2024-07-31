@@ -1,6 +1,8 @@
 package net.picoman.tutorialmod;
 
 import com.mojang.logging.LogUtils;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.FlowerPotBlock;
 import net.picoman.tutorialmod.block.ModBlocks;
 import net.picoman.tutorialmod.item.ModCreativeModTabs;
 import net.picoman.tutorialmod.item.ModItems;
@@ -41,7 +43,9 @@ public class TutorialMod {
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
-
+        event.enqueueWork(()-> {
+            ((FlowerPotBlock) Blocks.FLOWER_POT).addPlant(ModBlocks.CATMINT.getId(), ModBlocks.POTTED_CATMINT); //fait en sorte qu'on puisse cliquer sur un pot pour mettre la plante
+        });
     }
 
     private void addCreative(BuildCreativeModeTabContentsEvent event) {
