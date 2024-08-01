@@ -1,5 +1,9 @@
 package net.picoman.tutorialmod.entity.custom;
 
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.picoman.tutorialmod.entity.ModEntities;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
@@ -18,9 +22,13 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
+import net.picoman.tutorialmod.entity.ai.RhinoAttackGoal;
 import org.jetbrains.annotations.Nullable;
 
 public class RhinoEntity extends Animal {
+    private static final EntityDataAccessor<Boolean> ATTACKING = //boolean qui synchronise entre client et serveur quand on passe de true à false
+            SynchedEntityData.defineId(RhinoEntity.class, EntityDataSerializers.BOOLEAN);
+
     public RhinoEntity(EntityType<? extends Animal> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
     }
@@ -28,6 +36,8 @@ public class RhinoEntity extends Animal {
     public final AnimationState idleAnimationState = new AnimationState();
     private int idleAnimationTimeout = 0; //pas oublier de bien l'égaler à 0, je sais pas pourquoi par contre
 
+    public final AnimationState attackAnimationState = new AnimationState();
+    public int attackAnimationTimeout = 0;
 
     @Override
     public void tick() {
@@ -45,6 +55,17 @@ public class RhinoEntity extends Animal {
         } else {
             --this.idleAnimationTimeout;
         }
+
+        if(this.isAttacking() && attackAnimationTimeout <= 0) { //si on attaque et que le timeout est inférieur ou égal à 0
+            attackAnimationTimeout = 80; //longueur de l'animation de l'attaque en tics
+            attackAnimationState.start(this.tickCount);
+        } else {
+            --this.attackAnimationTimeout;
+        }
+
+        if(!this.isAttacking()) { //si on n'est plus en train d'attaquer
+            attackAnimationState.stop(); //on arrête l'animation directement, on la laisse même pas finir
+        }
     }
 
     @Override
@@ -59,10 +80,26 @@ public class RhinoEntity extends Animal {
         this.walkAnimation.update(f, 0.2f);
     }
 
+    public void setAttacking(boolean attacking){
+        this.entityData.set(ATTACKING, attacking);
+    }
+
+    public boolean isAttacking(){
+        return this.entityData.get(ATTACKING);
+    }
+
+    @Override
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(ATTACKING, false); //la valeur par défaut de notre boolean est false
+    }
+
     @Override
     protected void registerGoals() { //représente l'intelligence artificielle de l'entité, peut devenir très complexe
         this.goalSelector.addGoal(0, new FloatGoal(this)); //plus le chiffre de priorité est bas plus c'est important
         //toujours ajouter un floatGoal sinon si l'entité se retrouve dans l'eau elle coule et se noie
+
+        this.goalSelector.addGoal(1, new RhinoAttackGoal(this, 1.0D, true));
 
         this.goalSelector.addGoal(1, new BreedGoal(this, 1.15D));
         this.goalSelector.addGoal(2, new TemptGoal(this, 1.2D, Ingredient.of(Items.COOKED_BEEF), false)); //on peut faire en sorte que le dino suive si on a du boeuf cuit dans la main
@@ -73,6 +110,8 @@ public class RhinoEntity extends Animal {
         this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 3f));
         this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
         //regarder les autres entités vanilla pour voir les différents goals qui existent
+
+        this.targetSelector.addGoal(1, new HurtByTargetGoal(this)); //définis ce que le rhino attaque quand il attaque. Ici, celui qui l'a blessé
     }
 
     public static AttributeSupplier.Builder createAttributes() { //si on oublie cette fonction l'entity ne peut pas spawn
