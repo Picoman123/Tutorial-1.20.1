@@ -20,7 +20,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
 import java.util.List;
-
+//cette classe concerne uniquement les évènements forges, pas les moddés
 @Mod.EventBusSubscriber(modid = TutorialMod.MOD_ID)
 public class ModEvents {
 

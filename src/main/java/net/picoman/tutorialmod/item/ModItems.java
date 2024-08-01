@@ -1,7 +1,9 @@
 package net.picoman.tutorialmod.item;
 
+import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.picoman.tutorialmod.TutorialMod;
 import net.picoman.tutorialmod.block.ModBlocks;
+import net.picoman.tutorialmod.entity.ModEntities;
 import net.picoman.tutorialmod.item.custom.FuelItem;
 import net.picoman.tutorialmod.item.custom.MetalDetectorItem;
 import net.minecraft.world.item.*;
@@ -65,6 +67,9 @@ public class ModItems {
     public static final RegistryObject<Item> BAR_BRAWL_MUSIC_DISC = ITEMS.register("bar_brawl_music_disc",
             () -> new RecordItem(6, ModSounds.BAR_BRAWL, new Item.Properties().stacksTo(1), 2440)); //6 corresond à la valeur de comparateur qu'on peut sortir d'un jukebox quand le disque est mis
     // 2440 correspond à la durée en tics de la musique
+
+    public static final RegistryObject<Item> RHINO_SPAWN_EGG = ITEMS.register("rhino_spawn_egg", () -> new ForgeSpawnEggItem(ModEntities.RHINO,
+            0x7e9680, 0xc5d1c5, new Item.Properties()));
 
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);

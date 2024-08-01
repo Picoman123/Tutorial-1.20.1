@@ -1,9 +1,13 @@
 package net.picoman.tutorialmod;
 
 import com.mojang.logging.LogUtils;
+import net.minecraft.client.renderer.entity.EntityRenderer;
+import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.FlowerPotBlock;
 import net.picoman.tutorialmod.block.ModBlocks;
+import net.picoman.tutorialmod.entity.ModEntities;
+import net.picoman.tutorialmod.entity.client.RhinoRenderer;
 import net.picoman.tutorialmod.item.ModCreativeModTabs;
 import net.picoman.tutorialmod.item.ModItems;
 import net.minecraft.world.item.CreativeModeTabs;
@@ -40,6 +44,7 @@ public class TutorialMod {
         ModVillagers.register(modEventBus);
 
         ModSounds.register(modEventBus);
+        ModEntities.register(modEventBus);
 
         modEventBus.addListener(this::commonSetup);
 
@@ -71,7 +76,7 @@ public class TutorialMod {
     public static class ClientModEvents {
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event) {
-
+            EntityRenderers.register(ModEntities.RHINO.get(), RhinoRenderer::new);
         }
     }
 }
