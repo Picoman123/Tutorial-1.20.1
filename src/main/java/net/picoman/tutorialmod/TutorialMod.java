@@ -24,6 +24,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.picoman.tutorialmod.loot.ModLootModifiers;
+import net.picoman.tutorialmod.recipe.ModRecipes;
 import net.picoman.tutorialmod.screen.GemPolishingStationScreen;
 import net.picoman.tutorialmod.screen.ModMenuTypes;
 import net.picoman.tutorialmod.sound.ModSounds;
@@ -52,6 +53,8 @@ public class TutorialMod {
 
         ModBlockEntities.register(modEventBus);
         ModMenuTypes.register(modEventBus);
+
+        ModRecipes.register(modEventBus);
 
         modEventBus.addListener(this::commonSetup);
 
@@ -85,7 +88,7 @@ public class TutorialMod {
         public static void onClientSetup(FMLClientSetupEvent event) {
             EntityRenderers.register(ModEntities.RHINO.get(), RhinoRenderer::new);
 
-            MenuScreens.register(ModMenuTypes.GEM_POLISHING_MENU.get(), GemPolishingStationScreen::new); //on connecte le menu et le screen 
+            MenuScreens.register(ModMenuTypes.GEM_POLISHING_MENU.get(), GemPolishingStationScreen::new); //on connecte le menu et le screen
         }
     }
 }

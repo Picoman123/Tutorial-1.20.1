@@ -1,6 +1,8 @@
 package net.picoman.tutorialmod.block.entity;
 
+import net.minecraft.world.item.Items;
 import net.picoman.tutorialmod.item.ModItems;
+import net.picoman.tutorialmod.recipe.GemPolishingRecipe;
 import net.picoman.tutorialmod.screen.GemPolishingStationMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -27,6 +29,8 @@ import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.Optional;
 
 public class GemPolishingStationBlockEntity extends BlockEntity implements MenuProvider {
     private final ItemStackHandler itemHandler = new ItemStackHandler(2);//taille de 2 car la gui a deux emplacements
@@ -141,7 +145,9 @@ public class GemPolishingStationBlockEntity extends BlockEntity implements MenuP
     }
 
     private void craftItem() {
-        ItemStack result = new ItemStack(ModItems.SAPPHIRE.get(), 1); //on reçoit un sapphire poli
+        Optional<GemPolishingRecipe> recipe = getCurrentRecipe();
+        ItemStack result = recipe.get().getResultItem(null);
+
         this.itemHandler.extractItem(INPUT_SLOT, 1, false); //on enlève le raw sapphire utilisé pour polir
 
         this.itemHandler.setStackInSlot(OUTPUT_SLOT, new ItemStack(result.getItem(),
@@ -149,10 +155,23 @@ public class GemPolishingStationBlockEntity extends BlockEntity implements MenuP
     }
 
     private boolean hasRecipe() {
-        boolean hasCraftingItem = this.itemHandler.getStackInSlot(INPUT_SLOT).getItem() == ModItems.RAW_SAPPHIRE.get(); //si ce qu'on met dans l'input slot est du raw sapphire
-        ItemStack result = new ItemStack(ModItems.SAPPHIRE.get());
+        Optional<GemPolishingRecipe> recipe = getCurrentRecipe();
 
-        return hasCraftingItem && canInsertAmountIntoOutputSlot(result.getCount()) && canInsertItemIntoOutputSlot(result.getItem());
+        if(recipe.isEmpty()) { //si on a pas de match avec ce que le joueur a dans l'inventaire
+            return false;
+        }
+        ItemStack result = recipe.get().getResultItem(getLevel().registryAccess()); //si on arrive ici on est sûr qu'il y une recette qui matche et que du coup on pourra avoir un résultat
+
+        return canInsertAmountIntoOutputSlot(result.getCount()) && canInsertItemIntoOutputSlot(result.getItem());
+    }
+
+    private Optional<GemPolishingRecipe> getCurrentRecipe() {
+        SimpleContainer inventory = new SimpleContainer(this.itemHandler.getSlots());
+        for(int i = 0; i < itemHandler.getSlots(); i++) { //parcourt ce qu'on a dans l'inventaire
+            inventory.setItem(i, this.itemHandler.getStackInSlot(i));
+        }
+
+        return this.level.getRecipeManager().getRecipeFor(GemPolishingRecipe.Type.INSTANCE, inventory, level); //regarde si ce qu'on a dans l'inventaire matche une recette et renvoie true si c'est le cas
     }
 
     private boolean canInsertItemIntoOutputSlot(Item item) {
