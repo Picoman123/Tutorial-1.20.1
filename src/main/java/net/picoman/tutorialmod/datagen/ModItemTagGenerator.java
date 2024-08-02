@@ -10,6 +10,7 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.ItemTagsProvider;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.data.ExistingFileHelper;
+import net.picoman.tutorialmod.block.ModBlocks;
 import net.picoman.tutorialmod.item.ModItems;
 import org.jetbrains.annotations.Nullable;
 
@@ -29,5 +30,17 @@ public class ModItemTagGenerator extends ItemTagsProvider {
         this.tag(ItemTags.MUSIC_DISCS).add(ModItems.BAR_BRAWL_MUSIC_DISC.get());
 
         this.tag(ItemTags.CREEPER_DROP_MUSIC_DISCS).add(ModItems.BAR_BRAWL_MUSIC_DISC.get());
+
+        this.tag(ItemTags.LOGS_THAT_BURN)
+                .add(ModBlocks.PINE_LOG.get().asItem())
+                .add(ModBlocks.PINE_WOOD.get().asItem())
+                .add(ModBlocks.STRIPPED_PINE_LOG.get().asItem())
+                .add(ModBlocks.STRIPPED_PINE_WOOD.get().asItem());
+
+        this.tag(ItemTags.PLANKS)
+                .add(ModBlocks.PINE_PLANKS.get().asItem()); //permet d'utiliser les planches pour crafter des sticks etc
+
+        //pour pouvoir crafter des planches à partir de bûches etc, il faut ajouter les recettes manuellement dans ModRecipeProvider
+
     }
 }

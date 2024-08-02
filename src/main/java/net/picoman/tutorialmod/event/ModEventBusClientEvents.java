@@ -1,4 +1,4 @@
-package net.kaupenjoe.tutorialmod.event;
+package net.picoman.tutorialmod.event;
 
 import net.picoman.tutorialmod.TutorialMod;
 import net.picoman.tutorialmod.block.entity.ModBlockEntities;
