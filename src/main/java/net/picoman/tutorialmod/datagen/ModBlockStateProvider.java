@@ -1,5 +1,6 @@
 package net.picoman.tutorialmod.datagen;
 
+import net.minecraftforge.client.model.generators.ModelFile;
 import net.picoman.tutorialmod.TutorialMod;
 import net.picoman.tutorialmod.block.ModBlocks;
 import net.picoman.tutorialmod.block.custom.CornCropBlock;
@@ -52,6 +53,8 @@ public class ModBlockStateProvider extends BlockStateProvider {
                 blockTexture(ModBlocks.CATMINT.get())).renderType("cutout")); //cutout pour enlever les alpha values, je sais pas ce que c'est
         simpleBlockWithItem(ModBlocks.POTTED_CATMINT.get(), models().singleTexture("potted_catmint", new ResourceLocation("flower_pot_cross"), "plant",
                 blockTexture(ModBlocks.CATMINT.get())).renderType("cutout"));
+
+        simpleBlockWithItem(ModBlocks.GEM_POLISHING_STATION.get(), new ModelFile.UncheckedModelFile(modLoc("block/gem_polishing_station")));
     }
 
 

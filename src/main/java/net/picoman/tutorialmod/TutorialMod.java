@@ -1,11 +1,13 @@
 package net.picoman.tutorialmod;
 
 import com.mojang.logging.LogUtils;
+import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.FlowerPotBlock;
 import net.picoman.tutorialmod.block.ModBlocks;
+import net.picoman.tutorialmod.block.entity.ModBlockEntities;
 import net.picoman.tutorialmod.entity.ModEntities;
 import net.picoman.tutorialmod.entity.client.RhinoRenderer;
 import net.picoman.tutorialmod.item.ModCreativeModTabs;
@@ -22,6 +24,8 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.picoman.tutorialmod.loot.ModLootModifiers;
+import net.picoman.tutorialmod.screen.GemPolishingStationScreen;
+import net.picoman.tutorialmod.screen.ModMenuTypes;
 import net.picoman.tutorialmod.sound.ModSounds;
 import net.picoman.tutorialmod.villager.ModVillagers;
 import org.slf4j.Logger;
@@ -45,6 +49,9 @@ public class TutorialMod {
 
         ModSounds.register(modEventBus);
         ModEntities.register(modEventBus);
+
+        ModBlockEntities.register(modEventBus);
+        ModMenuTypes.register(modEventBus);
 
         modEventBus.addListener(this::commonSetup);
 
@@ -77,6 +84,8 @@ public class TutorialMod {
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event) {
             EntityRenderers.register(ModEntities.RHINO.get(), RhinoRenderer::new);
+
+            MenuScreens.register(ModMenuTypes.GEM_POLISHING_MENU.get(), GemPolishingStationScreen::new); //on connecte le menu et le screen 
         }
     }
 }

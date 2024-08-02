@@ -73,6 +73,8 @@ public class ModCreativeModTabs {
 
                         pOutput.accept(ModBlocks.CATMINT.get());
 
+                        pOutput.accept(ModBlocks.GEM_POLISHING_STATION.get());
+
 
                     })
                     .build());

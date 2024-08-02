@@ -3,6 +3,7 @@ package net.picoman.tutorialmod.block;
 import net.minecraft.world.effect.MobEffects;
 import net.picoman.tutorialmod.TutorialMod;
 import net.picoman.tutorialmod.block.custom.CornCropBlock;
+import net.picoman.tutorialmod.block.custom.GemPolishingStationBlock;
 import net.picoman.tutorialmod.block.custom.SoundBlock;
 import net.picoman.tutorialmod.block.custom.StrawberryCropBlock;
 import net.picoman.tutorialmod.item.ModItems;
@@ -81,6 +82,9 @@ public class ModBlocks {
             () -> new FlowerBlock(() -> MobEffects.LUCK, 6, BlockBehaviour.Properties.copy(Blocks.ALLIUM).noOcclusion().noCollission())); //le 6 corresond à la durée de l'effet en secondes
     public static final RegistryObject<Block> POTTED_CATMINT = BLOCKS.register("potted_catmint", //on met BLOCKS.register et pas registerBlock parce qu'on veut pas générer d'item de potted flower, ça n'a pas de sens
             () -> new FlowerPotBlock(() -> ((FlowerPotBlock) Blocks.FLOWER_POT), ModBlocks.CATMINT, BlockBehaviour.Properties.copy(Blocks.POTTED_ALLIUM).noOcclusion())); //il faut pas oublier d'ajouter la potted version d'une fleur quand on ajoute une fleur, en tout cas si on veut pouvoir la mettre en pot
+
+    public static final RegistryObject<Block> GEM_POLISHING_STATION = registerBlock("gem_polishing_station",
+            () -> new GemPolishingStationBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).sound(SoundType.AMETHYST).noOcclusion()));
 
 
     private static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block) {
