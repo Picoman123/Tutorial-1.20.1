@@ -2,6 +2,7 @@ package net.picoman.tutorialmod;
 
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.gui.screens.MenuScreens;
+import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.world.level.block.Blocks;
@@ -28,6 +29,7 @@ import net.picoman.tutorialmod.recipe.ModRecipes;
 import net.picoman.tutorialmod.screen.GemPolishingStationScreen;
 import net.picoman.tutorialmod.screen.ModMenuTypes;
 import net.picoman.tutorialmod.sound.ModSounds;
+import net.picoman.tutorialmod.util.ModWoodTypes;
 import net.picoman.tutorialmod.villager.ModVillagers;
 import org.slf4j.Logger;
 
@@ -86,6 +88,8 @@ public class TutorialMod {
     public static class ClientModEvents {
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event) {
+            Sheets.addWoodType(ModWoodTypes.PINE);
+
             EntityRenderers.register(ModEntities.RHINO.get(), RhinoRenderer::new);
 
             MenuScreens.register(ModMenuTypes.GEM_POLISHING_MENU.get(), GemPolishingStationScreen::new); //on connecte le menu et le screen

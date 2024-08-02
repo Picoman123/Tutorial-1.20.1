@@ -1,5 +1,7 @@
 package net.picoman.tutorialmod.event;
 
+import net.minecraft.client.renderer.blockentity.HangingSignRenderer;
+import net.minecraft.client.renderer.blockentity.SignRenderer;
 import net.picoman.tutorialmod.TutorialMod;
 import net.picoman.tutorialmod.block.entity.ModBlockEntities;
 import net.picoman.tutorialmod.block.entity.renderer.GemPolishingBlockEntityRenderer;
@@ -23,5 +25,8 @@ public class ModEventBusClientEvents {
     @SubscribeEvent
     public static void registerBER(EntityRenderersEvent.RegisterRenderers event) {
         event.registerBlockEntityRenderer(ModBlockEntities.GEM_POLISHING_BE.get(), GemPolishingBlockEntityRenderer::new);
+
+        event.registerBlockEntityRenderer(ModBlockEntities.MOD_SIGN.get(), SignRenderer::new);
+        event.registerBlockEntityRenderer(ModBlockEntities.MOD_HANGING_SIGN.get(), HangingSignRenderer::new);
     }
 }
