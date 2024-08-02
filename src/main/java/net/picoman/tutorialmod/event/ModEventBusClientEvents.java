@@ -1,6 +1,8 @@
 package net.kaupenjoe.tutorialmod.event;
 
 import net.picoman.tutorialmod.TutorialMod;
+import net.picoman.tutorialmod.block.entity.ModBlockEntities;
+import net.picoman.tutorialmod.block.entity.renderer.GemPolishingBlockEntityRenderer;
 import net.picoman.tutorialmod.entity.client.ModModelLayers;
 import net.picoman.tutorialmod.entity.client.RhinoModel;
 import net.minecraftforge.api.distmarker.Dist;
@@ -16,5 +18,10 @@ public class ModEventBusClientEvents {
     @SubscribeEvent
     public static void registerLayer(EntityRenderersEvent.RegisterLayerDefinitions event) {
         event.registerLayerDefinition(ModModelLayers.RHINO_LAYER, RhinoModel::createBodyLayer);
+    }
+
+    @SubscribeEvent
+    public static void registerBER(EntityRenderersEvent.RegisterRenderers event) {
+        event.registerBlockEntityRenderer(ModBlockEntities.GEM_POLISHING_BE.get(), GemPolishingBlockEntityRenderer::new);
     }
 }

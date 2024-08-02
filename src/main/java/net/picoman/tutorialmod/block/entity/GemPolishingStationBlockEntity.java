@@ -1,5 +1,9 @@
 package net.picoman.tutorialmod.block.entity;
 
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
+import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
+import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.item.Items;
 import net.picoman.tutorialmod.item.ModItems;
 import net.picoman.tutorialmod.recipe.GemPolishingRecipe;
@@ -33,7 +37,16 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Optional;
 
 public class GemPolishingStationBlockEntity extends BlockEntity implements MenuProvider {
-    private final ItemStackHandler itemHandler = new ItemStackHandler(2);//taille de 2 car la gui a deux emplacements
+    private final ItemStackHandler itemHandler = new ItemStackHandler(2){ //taille de 2 car la gui a deux emplacements
+
+        @Override
+        protected void onContentsChanged(int slot) {
+            setChanged();
+            if(!level.isClientSide()) {
+                level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), 3); //se sert d'update notre bloc lorsque itemHandler est apppelé n'importe où
+            }
+        }
+    };
 
     private static final int INPUT_SLOT = 0;
     private static final int OUTPUT_SLOT = 1;
@@ -70,6 +83,14 @@ public class GemPolishingStationBlockEntity extends BlockEntity implements MenuP
             }
         };
     }
+    public ItemStack getRenderStack(){
+        if(itemHandler.getStackInSlot(OUTPUT_SLOT).isEmpty()) {
+            return itemHandler.getStackInSlot(INPUT_SLOT);
+        } else {
+            return itemHandler.getStackInSlot(OUTPUT_SLOT);
+        }
+    }
+
 
     @Override
     public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
@@ -188,5 +209,16 @@ public class GemPolishingStationBlockEntity extends BlockEntity implements MenuP
 
     private void increaseCraftingProgress() {
         progress++;
+    }
+
+    @Nullable
+    @Override
+    public Packet<ClientGamePacketListener> getUpdatePacket() {
+        return ClientboundBlockEntityDataPacket.create(this);
+    }
+
+    @Override
+    public CompoundTag getUpdateTag() {
+        return saveWithoutMetadata();
     }
 }
