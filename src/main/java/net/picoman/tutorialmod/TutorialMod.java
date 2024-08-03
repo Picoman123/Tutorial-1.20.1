@@ -10,6 +10,7 @@ import net.minecraft.world.level.block.FlowerPotBlock;
 import net.picoman.tutorialmod.block.ModBlocks;
 import net.picoman.tutorialmod.block.entity.ModBlockEntities;
 import net.picoman.tutorialmod.entity.ModEntities;
+import net.picoman.tutorialmod.entity.client.ModBoatRenderer;
 import net.picoman.tutorialmod.entity.client.RhinoRenderer;
 import net.picoman.tutorialmod.item.ModCreativeModTabs;
 import net.picoman.tutorialmod.item.ModItems;
@@ -91,6 +92,8 @@ public class TutorialMod {
             Sheets.addWoodType(ModWoodTypes.PINE);
 
             EntityRenderers.register(ModEntities.RHINO.get(), RhinoRenderer::new);
+            EntityRenderers.register(ModEntities.MOD_BOAT.get(), pContext -> new ModBoatRenderer(pContext, false));
+            EntityRenderers.register(ModEntities.MOD_CHEST_BOAT.get(), pContext -> new ModBoatRenderer(pContext, true));
 
             MenuScreens.register(ModMenuTypes.GEM_POLISHING_MENU.get(), GemPolishingStationScreen::new); //on connecte le menu et le screen
         }
