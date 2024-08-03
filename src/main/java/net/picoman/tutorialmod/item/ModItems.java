@@ -6,15 +6,12 @@ import net.picoman.tutorialmod.block.ModBlocks;
 import net.picoman.tutorialmod.entity.ModEntities;
 import net.picoman.tutorialmod.entity.custom.ModBoatEntity;
 import net.picoman.tutorialmod.entity.custom.ModChestBoatEntity;
-import net.picoman.tutorialmod.item.custom.FuelItem;
-import net.picoman.tutorialmod.item.custom.MetalDetectorItem;
+import net.picoman.tutorialmod.item.custom.*;
 import net.minecraft.world.item.*;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
-import net.picoman.tutorialmod.item.custom.ModArmorItem;
-import net.picoman.tutorialmod.item.custom.ModBoatItem;
 import net.picoman.tutorialmod.sound.ModSounds;
 
 public class ModItems {
@@ -83,6 +80,9 @@ public class ModItems {
             () -> new ModBoatItem(false, ModBoatEntity.Type.PINE, new Item.Properties()));
     public static final RegistryObject<Item> PINE_CHEST_BOAT = ITEMS.register("pine_chest_boat",
             () -> new ModBoatItem(true, ModBoatEntity.Type.PINE, new Item.Properties()));
+
+    public static final RegistryObject<Item> DICE = ITEMS.register("dice",
+            () -> new DiceItem(new Item.Properties()));
 
 
 
