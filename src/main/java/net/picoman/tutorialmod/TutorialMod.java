@@ -33,6 +33,7 @@ import net.picoman.tutorialmod.screen.ModMenuTypes;
 import net.picoman.tutorialmod.sound.ModSounds;
 import net.picoman.tutorialmod.util.ModWoodTypes;
 import net.picoman.tutorialmod.villager.ModVillagers;
+import net.picoman.tutorialmod.worldgen.tree.ModTrunkPlacerTypes;
 import org.slf4j.Logger;
 
 // The value here should match an entry in the META-INF/mods.toml file
@@ -59,6 +60,8 @@ public class TutorialMod {
         ModMenuTypes.register(modEventBus);
 
         ModRecipes.register(modEventBus);
+
+        ModTrunkPlacerTypes.register(modEventBus);
 
         modEventBus.addListener(this::commonSetup);
 

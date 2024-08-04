@@ -22,6 +22,7 @@ import net.minecraft.world.level.levelgen.feature.configurations.OreConfiguratio
 import net.minecraft.world.level.levelgen.structure.templatesystem.BlockMatchTest;
 import net.minecraft.world.level.levelgen.structure.templatesystem.RuleTest;
 import net.minecraft.world.level.levelgen.structure.templatesystem.TagMatchTest;
+import net.picoman.tutorialmod.worldgen.tree.custom.PineTrunkPlacer;
 
 import java.util.List;
 
@@ -49,7 +50,7 @@ public class ModConfiguredFeatures {
                 ModBlocks.END_STONE_SAPPHIRE_ORE.get().defaultBlockState(), 9));
 
         register(context, PINE_KEY, Feature.TREE, new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(ModBlocks.PINE_LOG.get()),
-                new StraightTrunkPlacer(5, 4, 3),
+                new PineTrunkPlacer(5, 4, 3),
                 BlockStateProvider.simple(ModBlocks.PINE_LEAVES.get()),
                 new BlobFoliagePlacer(ConstantInt.of(3), ConstantInt.of(2), 3),
                 new TwoLayersFeatureSize(1, 0, 2)).build());
