@@ -33,9 +33,12 @@ import net.picoman.tutorialmod.screen.ModMenuTypes;
 import net.picoman.tutorialmod.sound.ModSounds;
 import net.picoman.tutorialmod.util.ModWoodTypes;
 import net.picoman.tutorialmod.villager.ModVillagers;
+import net.picoman.tutorialmod.worldgen.biome.ModTerrablender;
+import net.picoman.tutorialmod.worldgen.biome.surface.ModSurfaceRules;
 import net.picoman.tutorialmod.worldgen.tree.ModFoliagePlacers;
 import net.picoman.tutorialmod.worldgen.tree.ModTrunkPlacerTypes;
 import org.slf4j.Logger;
+import terrablender.api.SurfaceRuleManager;
 
 // The value here should match an entry in the META-INF/mods.toml file
 @Mod(TutorialMod.MOD_ID)
@@ -66,6 +69,8 @@ public class TutorialMod {
 
         ModFoliagePlacers.register(modEventBus);
 
+        ModTerrablender.registerBiomes();
+
         modEventBus.addListener(this::commonSetup);
 
         MinecraftForge.EVENT_BUS.register(this);
@@ -75,6 +80,8 @@ public class TutorialMod {
     private void commonSetup(final FMLCommonSetupEvent event) {
         event.enqueueWork(()-> {
             ((FlowerPotBlock) Blocks.FLOWER_POT).addPlant(ModBlocks.CATMINT.getId(), ModBlocks.POTTED_CATMINT); //fait en sorte qu'on puisse cliquer sur un pot pour mettre la plante
+
+            SurfaceRuleManager.addSurfaceRules(SurfaceRuleManager.RuleCategory.OVERWORLD, MOD_ID, ModSurfaceRules.makeRules()); //on applique notre biome custom uniquement à l'overworld
         });
     }
 
