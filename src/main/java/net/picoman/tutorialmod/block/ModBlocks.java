@@ -21,6 +21,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import net.picoman.tutorialmod.sound.ModSounds;
 import net.picoman.tutorialmod.util.ModWoodTypes;
+import net.picoman.tutorialmod.worldgen.tree.PineTreeGrower;
 
 import java.util.function.Supplier;
 
@@ -145,6 +146,9 @@ public class ModBlocks {
 
     public static final RegistryObject<Block> DICE_BLOCK = BLOCKS.register("dice_block",
             () -> new DiceBlock(BlockBehaviour.Properties.copy(Blocks.STONE).noLootTable()));
+
+    public static final RegistryObject<Block> PINE_SAPLING = registerBlock("pine_sapling",
+            () -> new SaplingBlock(new PineTreeGrower(), BlockBehaviour.Properties.copy(Blocks.OAK_SAPLING)));
 
 
 

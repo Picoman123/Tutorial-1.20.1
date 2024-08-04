@@ -1,5 +1,12 @@
 package net.picoman.tutorialmod.worldgen;
 
+import io.netty.util.Constant;
+import net.minecraft.util.valueproviders.ConstantInt;
+import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
+import net.minecraft.world.level.levelgen.feature.featuresize.TwoLayersFeatureSize;
+import net.minecraft.world.level.levelgen.feature.foliageplacers.BlobFoliagePlacer;
+import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
+import net.minecraft.world.level.levelgen.feature.trunkplacers.StraightTrunkPlacer;
 import net.picoman.tutorialmod.TutorialMod;
 import net.picoman.tutorialmod.block.ModBlocks;
 import net.minecraft.core.registries.Registries;
@@ -23,6 +30,8 @@ public class ModConfiguredFeatures {
     public static final ResourceKey<ConfiguredFeature<?, ?>> NETHER_SAPPHIRE_ORE_KEY = registerKey("nether_sapphire_ore");
     public static final ResourceKey<ConfiguredFeature<?, ?>> END_SAPPHIRE_ORE_KEY = registerKey("end_sapphire_ore");
 
+    public static final ResourceKey<ConfiguredFeature<?, ?>> PINE_KEY = registerKey("pine");
+
     public static void bootstrap(BootstapContext<ConfiguredFeature<?, ?>> context) {
         RuleTest stoneReplaceable = new TagMatchTest(BlockTags.STONE_ORE_REPLACEABLES); //vérifie si c'est de la stone et que du coup on peut la remplacer par notre minerai
         RuleTest deepslateReplaceables = new TagMatchTest(BlockTags.DEEPSLATE_ORE_REPLACEABLES); //même principe
@@ -38,6 +47,12 @@ public class ModConfiguredFeatures {
                 ModBlocks.NETHER_SAPPHIRE_ORE.get().defaultBlockState(), 9));
         register(context, END_SAPPHIRE_ORE_KEY, Feature.ORE, new OreConfiguration(endReplaceables,
                 ModBlocks.END_STONE_SAPPHIRE_ORE.get().defaultBlockState(), 9));
+
+        register(context, PINE_KEY, Feature.TREE, new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(ModBlocks.PINE_LOG.get()),
+                new StraightTrunkPlacer(5, 4, 3),
+                BlockStateProvider.simple(ModBlocks.PINE_LEAVES.get()),
+                new BlobFoliagePlacer(ConstantInt.of(3), ConstantInt.of(2), 3),
+                new TwoLayersFeatureSize(1, 0, 2)).build());
     }
 
 
