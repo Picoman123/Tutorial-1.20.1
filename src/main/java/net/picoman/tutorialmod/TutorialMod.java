@@ -33,6 +33,7 @@ import net.picoman.tutorialmod.screen.ModMenuTypes;
 import net.picoman.tutorialmod.sound.ModSounds;
 import net.picoman.tutorialmod.util.ModWoodTypes;
 import net.picoman.tutorialmod.villager.ModVillagers;
+import net.picoman.tutorialmod.worldgen.tree.ModFoliagePlacers;
 import net.picoman.tutorialmod.worldgen.tree.ModTrunkPlacerTypes;
 import org.slf4j.Logger;
 
@@ -62,6 +63,8 @@ public class TutorialMod {
         ModRecipes.register(modEventBus);
 
         ModTrunkPlacerTypes.register(modEventBus);
+
+        ModFoliagePlacers.register(modEventBus);
 
         modEventBus.addListener(this::commonSetup);
 
