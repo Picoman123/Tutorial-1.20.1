@@ -84,6 +84,8 @@ public class ModBlockStateProvider extends BlockStateProvider {
 
 
         saplingBlock(ModBlocks.PINE_SAPLING);
+
+        blockWithItem(ModBlocks.MOD_PORTAL);
     }
 
     private void saplingBlock(RegistryObject<Block> blockRegistryObject) {

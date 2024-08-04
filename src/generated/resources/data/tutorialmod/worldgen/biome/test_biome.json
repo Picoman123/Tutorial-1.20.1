@@ -108,7 +108,7 @@
         "type": "tutorialmod:rhino",
         "maxCount": 5,
         "minCount": 3,
-        "weight": 2
+        "weight": 50
       },
       {
         "type": "minecraft:wolf",

@@ -69,6 +69,8 @@
 
   "block.tutorialmod.pine_sapling": "Pine Sapling",
 
+  "block.tutorialmod.mod_portal" : "Mod Portal",
+
   "tooltip.tutorialmod.metal_detector.tooltip": "Finds rare ores",
 
   "entity.minecraft.villager.tutorialmod.soundmaster": "Sound Master",
